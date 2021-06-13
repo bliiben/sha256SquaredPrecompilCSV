@@ -71,6 +71,14 @@ def xor(a, b):
         return 'f'
     elif(a == 'f' and b=='t') or (a == 't' and b=='f'):
         return 't'
+    elif(a == 'f'):
+        return b
+    elif(a == 't'):
+        return getRef("~("+b+")")
+    elif(b == 'f'):
+        return a
+    elif(b == 't'):
+        return getRef("~("+a+")")
     return getRef("^("+a+","+b+")")
 
 # AND Returns &(a,b) bits, and simplifies if possible.
@@ -268,7 +276,6 @@ preprocess()
 
 print(_h)
 print (len(_REFERENCES_))
-
 # Export the data :
 with open("sha_decoded_2.pp", "wb") as file:
     pickle.dump( ( _h, _REFERENCES_, _DEPENDENCY_ ,_INV_DEP_, _COST_) , file )
